@@ -89,6 +89,11 @@ Unicorn says: "Yesterday was one of my lying days, too."
 
 What day is it?
 
+Sunday: Lion didn't lie yesterday and should be telling the truth
+Tuesday/Wednesday/Friday/Saturday: whoever is lying that day also lied the day before, but should be lying about that
+Monday: Unicorn tells the truth Mon/Sun, should say they didn't lie
+Thursday: Lion truthfully says they lied on Wednesday
+    Unicorn correctly lies about lying on Wednesday
 
 
 ////////////////////////////////
@@ -107,6 +112,7 @@ The first one says: "I'm Tweedledum."
 The second one says: "I'm Tweedledee."
 
 Which is which? What day is it?
+Sunday: Every other day
 
 
 
@@ -138,6 +144,11 @@ The first one says: "Tweedledee owns the rattle."
 The second one says: "I'm Tweedledee!"
 
 Who gets the rattle?
+Suppose the first twin is telling the truth, Rattle goes to Tweedledee. Second twin must be lying, so second twin is Tweedledum.
+First twin is Tweedledee, so first twin gets the rattle. 
+
+Suppose instead the first twin is lying. Tweedledum owns the rattle. Second twin is telling the truth, so they are Tweedledee.
+First twin is Tweedledum. The first win (Tweedledum) get the rattle. 
 
 Who is who?
 
@@ -156,8 +167,14 @@ Gold casket: "The portrait is in this casket."
 Silver casket: "The portrait is not in this casket."
 Lead casket: "The portrait is not in the gold casket."
 
-Where is the portrait?
+All messages could be false or just one message could be true.
 
+Where is the portrait?
+Suppose it's in the gold. Both gold and silver statements would be true, so not the case. 
+
+Suppose it's in the silver. Just one statement is true, so this works.
+
+Suppose it's in the lead. Two true statements, so can't work.
 
 
 
@@ -194,7 +211,7 @@ Bernard says: "At first I didn't know when Cheryl's
 Albert says: "Then I also know when Cheryl's birthday is."
 
 
-When is it?
+When is it? July 16
 
 
 
@@ -236,28 +253,28 @@ AND:
 
 p q  #  p ∧ q
 --------------
-T T  #    
-T F  #    
-F T  #     
-F F  #    
+T T  # T
+T F  # F
+F T  # F
+F F  # F
 
 
 OR:
 
 p q  #  p ∨ q
 --------------
-T T  #    
-T F  #    
-F T  #    
-F F  #    
+T T  # T
+T F  # T   
+F T  # T   
+F F  # F   
 
 
 NOT:
 
 p  # ¬p
 --------
-T  # 
-F  # 
+T  # F
+F  # T
 
 ////////////////////////////////////////////////
 
@@ -275,10 +292,10 @@ Otherwise we have not.
 
 p q  #  p → q
 --------------
-T T  #    
-T F  #      
-F T  #    
-F F  #     
+T T  # T
+T F  # F
+F T  # T
+F F  # T
 
 /////////////////////////////////////////
 
@@ -295,7 +312,7 @@ Design circuits for:
 
 p XOR q (with just the gates we've seen, not a specific XOR gate)
 
-
+Correspond the circuit in the order a sentence is given.
 
 /////////////////////////////////////
 
@@ -328,6 +345,7 @@ Consider ¬p ∨ q ∧ r.
 
 
 
+
 Order of operations
 
 In math?
@@ -338,6 +356,7 @@ In math?
 For logic statements:
 
 From highest (happens first) to lowest (happens last) precedence:
+(), ¬, ∧, V, →
 
 
 ////////////////////////////////////////////////
@@ -348,7 +367,7 @@ Given this statement:
 
 Add () to show the order of operations.
 
-
+(¬)p ∨ (q ∧ r)
 
 
 Evaluate the above statement using these
@@ -358,7 +377,8 @@ p is T
 q is F
 r is F
 
-
+(F) V (F)
+F
 
 ///////////////////////////////////////////
 

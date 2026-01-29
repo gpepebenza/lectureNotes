@@ -86,15 +86,17 @@ r is F
 Order of operations
     ¬ evaluates right to left
         ¬¬p is equivalent to....
-
+        ¬(¬p)
 
     ∧ and ∨ evaluate left to right
-        p ∧ q ∧ r is equivalent to....
-        p ∨ q ∨ r is equivalent to....
+        p ∧ q ∧ r is equivalent to.... p ∧ q ∧ r
+        p ∨ q ∨ r is equivalent to.... p V q V r
+
+        
 
 
     → evaluates right to left
-        p → q → r is equivalent to....
+        p → q → r is equivalent to.... p → (q → r)
 
 
 
@@ -103,15 +105,16 @@ Order of operations
 //////////////////////////////////////////
 
 Top-level operator (what happens LAST?)
-
+has the LOWEST precedence
 
 ¬p ∨ q ∧ r
 
 
-top-level? 
+top-level? V
 
 
-How is this similar to a circuit? 
+How is this similar to a circuit? The last one (often on the right)
+its output is the output of the whole circuit
 
 
 
@@ -121,19 +124,20 @@ p ∧ q ∨ r ∧ p
 
 rewrite with ():
 
+(p ∧ q) ∨ (r ∧ p)
 
-top-level operator? 
+top-level operator? V
 
 
 
 //////////////////////////////
 
-p ∧ q ∧ r ∧ s
+((p ∧ q) ∧ r) ∧ s
 
 rewrite with ():
 
 
-top-level operator?  
+top-level operator?  rightmost ∧
 
 
 ////////////////////////////////////////////////////
@@ -157,6 +161,8 @@ parse trees
 
 
 
+
+
 --> expression trees
 
 
@@ -175,6 +181,11 @@ If we have 2 variables, how many possible truth assignments?
 
     p, q
 
+    T T
+    T F
+    F T
+    F F
+4
 
 
 
@@ -183,11 +194,14 @@ If we have 3 variables, how many possible truth assignments?
 
     p, q, r
 
+8   
+
+
 
 
 If we have n variables, how many possible truth assignments?
 
-
+2**n
 
 
 
@@ -202,20 +216,22 @@ Contingent, contradictory, tautology
 
 
 
-contingent: 
+contingent: mix of true and false output
 
-    Example? 
-
-
-
-contradictory:
-
-    Example? 
+    Example? p V q
+    p
 
 
-tautology:
 
-    Example? 
+
+contradictory: Always false
+
+    Example? ¬p ∧ p
+
+
+tautology: Always true
+
+    Example? ¬p V p 
     
 
 ///////////////////////////////////////////
@@ -231,15 +247,22 @@ Write a truth table for:
 
 (p ∧ r) → (r ∨ ¬q)
 
-
+                   *
 -----------------------------
 p q r  #  (p ∧ r) → (r ∨ ¬q)
 -----------------------------
+T T T #      T    T     T   F
+T T F #      F    T     F   F 
+T F T #      T    T     T   T  
+T F F #      F    T     T   T
+F T F #      F    T     F   F
+F F T #      F    T     T   T
+F F F #      F    T     T   T
+F T T #      F    T     T   F
 
+Tautology
 
-
-
---> top-level operator?
+--> top-level operator? →
 
 --> need to evaluate statement on ALL possible truth assignments
 
@@ -290,22 +313,22 @@ Propositional logic.
 
 Which ones are propositions?
 
-Today is Thursday.
+Today is Thursday. Yes
 
 
-What time is it?
+What time is it? No
 
 
-x == 2
+x == 2 Yes
 
 
-Pigs can fly.
+Pigs can fly. Yes
 
 
-Drive carefully.
+Drive carefully. No
 
 
-y <= 4
+y <= 4 Yes
 
 
 
@@ -313,7 +336,7 @@ y <= 4
 
 Suppose we have these propositional atoms:
 
-    p: It is below freezing.
+    p: It is below freezing. 
 
     q: It is snowing.
 
@@ -324,21 +347,21 @@ Suppose we have these propositional atoms:
 
 How would we express these as English sentences?
 
-    ¬p:
+    ¬p: It's not below freezing
 
 
-    p ∧ q:
+    p ∧ q: It's below freezing, and it's snowing
 
 
-    p → q :
+    p → q : If it's below freezing, then it is snowing
 
 
-    ¬p → ¬q:
+    ¬p → ¬q: If it's not below freezing, then it is not snowing
 
 
-    r ∨ s:
+    r ∨ s: y <= 4 || x == 2
 
-    ¬r:
+    ¬r:y > 4
 
 ////////////////////////
 

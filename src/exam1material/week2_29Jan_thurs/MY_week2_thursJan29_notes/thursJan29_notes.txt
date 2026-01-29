@@ -18,7 +18,7 @@ Example: another parse tree
 
 p ∧ q ∧ r → ¬p ∨ q → r
 
-top-level operator:
+top-level operator: leftmost →
 
 
 Example: another circuit
@@ -27,15 +27,22 @@ p OR q AND NOT p
 
 
 //////////////////////////////////////////
-∧ ∨ ¬ → 
+Order of precedence:
+1. ¬ 
+2. ∧ 
+3. ∨  
+4. → 
 //////////////////////////////////////////
 
 Propositional logic.
 
 --> what are propositional atoms?
+smallest pieces of a statement that can be true/false
+will be our variable
 
 --> what are propositions?
-
+a statement that can be true or false
+combination of propositional atoms and logical operators
 
 
 
@@ -47,13 +54,16 @@ z != 7 && str.contains(sub)
 
 
 --> what are the propositional atoms?
+p : z == 7
 
+q : str.contains(sub)
 
 
 
 
 --> express in propositional logic
 
+¬p ∧ q
 
 ////////////
 ∧ ∨ ¬ →
@@ -62,27 +72,27 @@ z != 7 && str.contains(sub)
 Example:
 
 You can't enroll for the course if you haven't taken 
-the prerequisite.
+the prerequisite or the course is full.
 
 
 --> what are the propositional atoms?
-
-
+p: You can enroll for the course
+q: you have taken the prerequisite
+r: the course is full
 
 --> translate to propositional logic:
 
 
+¬q V r → ¬p
 
 really saying?
-
+If you haven't taken the prerequisite or the course is full, you can't enroll for the course.
 
 
 What is the *contrapositive* of our statement?
 
 
-
-
-
+p → q ∧ ¬r
 //////////////////////////////////////////
 ∧ ∨ ¬ → 
 //////////////////////////////////////////
@@ -96,12 +106,16 @@ if (x <= 2 || y >= 0) {
 }
 
 Propositional atoms?
-
+If all conditions happened, answer will be 25
+p: x <= 2
+q: y >= 0
+r: z == 17
+s: answer == 25
 
 
 
 Translation? (if ... then ...)
-
+(p V q) ∧ ¬r → s
 
 
 
@@ -110,22 +124,24 @@ Translation? (if ... then ...)
 
 Consider these two statements:
 
+p: I am at least 16 years old
+q: I can drive a car
 1) If I am at least 16 years old, then I can drive a car.
-
-
-
+p → q
+Only false when p = T, q = F
 2) I'm not at least 16 years old or I can drive a car.
 
-
-
+¬p V q
+Only false when p and q = February
+p = T, q = F
 
 --> are they saying the same thing?
 
-
+Yes
 
 
 --> could we PROVE it? (equiv1.logika, equiv2.logika)
-
+complete truth tables for both statements
 
 
 //////////////////////////////////
@@ -133,14 +149,17 @@ Consider these two statements:
 Consider these two statements:
 
 1) If I am at least 16 years old, then I can drive a car.
+p → q
 
 2) If I can drive a car, then I am at least 16 years old.
-
+q → p
 
 --> are they saying the same thing?
-
+No
 --> could we PROVE our answer?
-
+It is enough to find one truth assignment where the two statements have different output
+p: F, q = T
+makes the first statement true, but the second statement false
 
 //////////////////////////////////
 
@@ -159,7 +178,9 @@ if (a == 4 || a == 5) {
 How could we express the NEGATION
 (i.e., what condition would be true for the "else")?
 
+if (!(a == 4 || a == 5))
 
+if (a != 4 && a != 5)
 
 
 
@@ -172,7 +193,7 @@ if (a == 4 && b == 5) {
 How could we express the NEGATION
 (i.e., what condition would be true for the "else")?
 
-
+if (a != 4 || a != 5)
 
 
 
@@ -182,9 +203,12 @@ How could we express the NEGATION
 DeMorgan's laws in propositional logic:
 
 ¬(p ∨ q) is equivalent to... 
+¬p ∧ ¬q
+
+They are logically equivalent because for possible truth assignment, they have the same output
 
 ¬(p ∧ q) is equivalent to...
-
+¬p V ¬q
 
 --> how can we prove the first of DeMorgan's laws?
 
@@ -204,7 +228,7 @@ if (Character.isDigit(letter) || num < 10) {
 --> how would we negate it without using a ! operator?
     also no extra ()
 
-
+if (Character.isDigit(letter) == false && num >= 10)
 
 
 
@@ -216,7 +240,7 @@ if ((y >= 4 || num != 14) && x > 0) {
     statements
 }
 
-
+if ((y < 4 && num == 14) || x <= 0)
 
 
 ///////////////////////
@@ -236,14 +260,24 @@ p → q ≡  ¬p ∨ q                     (can turn implies into an or)
 
 
 associative laws
-    in math?
-    for ∧, ∨, →?
+    in math? (1 + 2) + 3 equiv to 1 + (2 + 3)
+    for ∧, ∨, →? ∧, ∨
+    → is not
+    1) (p → q) → r
+    2) p → (q → r)
 
+    p = F
+    q = F/T
+    r = F
+
+    makes first statement false, second statement true
 
 
 commutative laws 
     in math?
     for ∧, ∨, →?
+    ∧, ∨ are commutative
+    → is not 
 
 
 
@@ -280,11 +314,14 @@ Name two statements that are equivalent to:
 
 Satisfiability.
 
-- definition: 
+- definition: a proposition is satisfiable if we can find a truth assignment that makes the statement true
 
 
 
 - what kind of statement is satisfiable? what kind is not?
+continget, tautology statements are satisfiable
+contradictory statements are NOT satisfiable
+
 
 
 
@@ -293,15 +330,18 @@ Satisfiability.
 
     (p ∨ ¬q) ∧ (q ∨ ¬r) ∧ (r ∨ ¬p)
 
-
+p = T
+q = T
+r = T
 
 
 
 to show a statement is satisifiable: 
 
-
+find One truth assignment that makes the statement true
 to show a statement is NOT satisfiable: 
-
+need full truth table, show it is contradictory
+(Show that every possible truth assignment will be false)
 
 ////////////////////////////
 

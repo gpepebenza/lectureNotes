@@ -144,7 +144,7 @@ Proposed conclusion:
 
 1) Translate to propositional logic
 
-p: tehy raise their prices
+p: they raise their prices
 q: you stop eating at Chipotle
 
 Premises: p → q, ¬p 

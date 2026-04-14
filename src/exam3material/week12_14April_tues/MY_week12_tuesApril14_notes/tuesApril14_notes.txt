@@ -48,7 +48,49 @@ Contract(
     )
 )
 
+/////////////////////////////////
 
+def example(x: Z) : Z = {
+    Contract(
+    Requires( x > 0 ),
+    Ensures( Res[Z] > 1 )
+    )
+
+    //2) list preconditions as PREMISES //don't need a separate block
+    Deduce(
+        1 ( x > 0 ) by Premise
+    )
+
+    val calc: Z = x + 1
+    //3) prove each postcondition about the returned value
+    Deduce(
+        1 ( calc == x + 1 ) by Premise,
+        2 (x > 0 ) by Premise,
+        3 ( calc > 1 ) by Algebra*(1,2)
+
+    )
+
+    return calc
+}
+
+val test: Z = 6
+1) before calling a function, prove its preconditions
+//need: test > 0
+
+Deduce(
+    1 ( test == 6 ) by Premise,
+    2 ( test > 0 ) by Algebra*(1)
+)
+
+val result: Z = example(test)
+//4) claim the postconditions of example as premises
+Deduce(
+    1 ( result > 1 ) by Premise, //we are storing the return in result, so we plug "result" in for "Res[Z]"
+)
+
+assert (result > 1)
+
+///////////////////////////////////
 Requires/preconditions:
 - any assumptions we need to make about the parameters
 - user must prove these requirements BEFORE calling the function

@@ -1,6 +1,5 @@
 HW 9 due Tuesday, April 14
 
-Any Logika issues?
 
 ////////////////////////////
 
@@ -49,6 +48,7 @@ Deduce(
     2 ( y == x + 1 ) by Premise,
 
     //how to plug in y?
+    3 ( y > 0 ∧ y < 10 ) by Subst_>(2, 1)
 )
 
 //////////////////////////////
@@ -60,10 +60,15 @@ var x: Z = 2
 
 //what could we put in a proof block here?
 
+Deduce(
+    1 ( x == 2 ) by Premise
+)
 
+x = x + 2  
 
-
-x = x + 2       
+Deduce(
+    1 ( x == 2 ) by Premise //this makes no sense anymore 
+)
 
 
 //what might we try to put in a proof block here?
@@ -85,6 +90,25 @@ using:
 in the very next proof block. Only ONE "Old" value exists
 at a time.
 
+var x: Z = 2
+
+Deduce(
+    1 ( x == 2 ) by Premise,
+)
+
+x = x + 2
+
+Deduce(
+    1 ( Old(x) == 2 ) by Premise, //Old(x) is x's value JUST before
+                                //the most recent change
+
+    2 ( x == Old(x) + 2 ) by Premise,
+
+    3 ( x == 4 ) by Algebra*(1,2)
+)
+
+
+
 
 The Old(name) refers to value of the variable just before
 the latest update.
@@ -93,13 +117,19 @@ Goal: state that variable's current value WITHOUT using Old
 by the end of next proof block
 
 
+
 y = y + 4
+
+//would need to make statements about Old(y) here
 
 x = x + 3
 
 Deduce(
     //what "Old" values are available?
+    1 ( y == Old(y) + 4 ) by Premise, //NO! y wasn't the most
+                                //recent change
 
+    2 ( x == Old(x) + 3 ) by Premise //YES! x was the most recent change
 )
 
 //////////////////////
@@ -136,7 +166,12 @@ test = x / 7
 
 Deduce(
     1 ( test == x / 7 ) by Premise,
-    2 ( test*7 == x ) by Algebra*(1) //is this true?
+    2 ( test*7 == x ) by Algebra*(1), //is this true?
+                        //Not necessarily - can only write
+                        //if x is a multiple of 7
+                        //needed: x % 7 == 0
+    
+    3 ( x == test*7 + x%7 ) by Premise, //fine even if x not a multiple of 7
 )
 
 
@@ -200,7 +235,8 @@ Deduce(
 if (C) {
     Deduce(
         //what premises?  
-
+        1 ( C ) by Premise, //from if condition
+        2 ( P ) by Premise, //was true before, nothing has changed
     )
 
     statements
@@ -213,7 +249,8 @@ if (C) {
 } else {
     Deduce(
         //what premises? 
-        
+        1 ( !(C) ) by Premise, //condition is false since I'm in the else
+        2 ( P ) by Premise, //was true before, nothing has changed 
         
     )
 
@@ -227,7 +264,8 @@ if (C) {
 
 Deduce(
     //what premises?
-
+    1 ( Q ) by Premise, //true in both branches
+    2 ( A | B ) by Premise, //A true in if, B true in else
 
 )
 
@@ -245,6 +283,8 @@ Revisit the max example (maxOf2.sc)
 
 Example: absolute value
 
+(skipped for now, may come back on Tuesday)
+
 ////////////////////////////////
 
 Next week:
@@ -254,22 +294,28 @@ Next week:
 
 if (cond1) {
     if (cond2) {
-        //know: ?
+        //know: cond1, cond2
     } else {
-        //know: ?
+        //know: cond1, !(cond2)
     }
-    //Deduce block
+    //Deduce block (state things that were true in both branches)
+        //state thing1 | thing2 if one thing true in if, another in else
 
 } else {
     if (cond2) {
-        //know?
+        //know? !(cond1), cond2
     } else {
-        //know?
+        //know? !cond1, cond2
     }
     //Deduce block
+
+    //Deduce block (state things that were true in both branches)
+        //state thing1 | thing2 if one thing true in if, another in else
 }
 
-Deduce block
+Deduce block (things are premises if they were shown in both
+    summary blocks after the nested statements)
+
 
 ///////////////////////////////
 

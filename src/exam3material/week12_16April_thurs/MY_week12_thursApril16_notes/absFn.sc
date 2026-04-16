@@ -61,8 +61,26 @@ val calc: Z = absVal(x)
 
 //THURSDAY: finish from here
 
-// calc >= 0
-// calc == -1*x | calc == x
+Deduce(
+  1 (x == -4) by Premise,
+  2 (calc >= 0 ) by Premise,
+  3 ( calc == -1*x | calc == x ) by Premise,
+
+
+  4 SubProof(
+    5 Assume ( calc == -1*x ),
+    6 ( calc == 4 ) by Algebra*(1,5),
+  ),
+  7 SubProof(
+    8 Assume ( calc == x ),
+    9 ( calc == -4 ) by Algebra*(1, 8),
+    10 ( F ) by Algebra*(2, 9),
+    11 ( calc == 4 ) by BottomE(10)
+  ),
+
+  12 ( calc == 4 ) by OrE(3, 4, 7)
+  //goal: calc == 4
+)
 
 //what should we be able to assert?
 assert(calc == 4)

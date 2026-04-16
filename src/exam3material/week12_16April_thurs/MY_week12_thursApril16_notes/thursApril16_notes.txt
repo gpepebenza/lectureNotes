@@ -57,12 +57,22 @@ Example (mult_rec.sc):
 
 Validating loops.
 
-while (condition) {
-    statements
+val x: Z = 0
+val y: Z = 0
+while (x < n) {
+    Deduce(
+        1 ( x == 0 ) by Premise //We don't know what iteration it is, we can't write this
+    )
+
+    x = x + 1
+    y = y + x
 }
 
+y == Old(y) + x //No, We don't know what old(y) is 
 
-<-- what do we know here?
+
+
+<-- what do we know here? !(x < n)
 
 <-- why is this more challenging than if-statements?
 
@@ -76,6 +86,9 @@ in a loop
 
 - invariant should be true before loop begins
 - should be STILL true at the end of each iteration
+    we assume the inductive hypothesis
+    here, we'll assume our invariants hold at beginning of an iteration
+    need to prove it's still true at the end of that iteration
 
 
 Steps to proving correctness of a loop:
@@ -97,10 +110,10 @@ Steps to proving correctness of a loop:
 /////////////////////////
 
 When loop ends, you know two things:
-    1) About the invariant? 
+    1) About the invariant? true
 
 
-    2) About the loop condition? 
+    2) About the loop condition? !(condition)
 
 
 

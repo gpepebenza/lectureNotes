@@ -77,6 +77,18 @@ Problems will be similar in format to Homework 7-10.
 
 
 When doing programming logic:
+    - when to have a proof bloc?
+        before a function call: prove precondition
+        before any assert: prove exactly the assert
+        when variables change - need proof block to use "Old" and process what happened
+        if/else - show something in if, show something in else
+            after if/else: can say as premise a claim proved in both branches
+                A V B as premise ( if A was proved in if and B in else)
+        before a function returns: prove the postcondition
+        prove any invariants at end of each loop iteration and before the loop begins 
+
+
+
     - use a proof block to process each variable update
     - use exact assignment statements, previous claims,
         conditions, etc. as premises (using "Old" for previous

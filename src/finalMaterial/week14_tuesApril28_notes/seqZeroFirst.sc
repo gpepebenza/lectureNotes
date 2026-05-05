@@ -17,7 +17,8 @@ def makeFirstZero(seq: ZS): Unit = {
       seq(0) == 0,
       //every other position is unchanged
       //sireum slang template insert for all range quantification
-      ∀(1 until seq.size)(k => seq(k) == In(seq)(k))    )
+      ∀(1 until seq.size)(k => seq(k) == In(seq)(k))    
+      )
   )
 
   seq(0) = 0

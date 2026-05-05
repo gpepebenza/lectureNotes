@@ -12,10 +12,10 @@ def mult(x: Z, y: Z): Z = {
     var count: Z = 0
 
     //measure of work? (how many more iterations left?)
-    //initially?
-    //after 1 iteration?
+    //initially? y iterations
+    //after 1 iteration? y - 1 more iterations
 
-    //in general?
+    //in general? y - count here
 
     while (count < y) {
         Invariant(
@@ -23,16 +23,20 @@ def mult(x: Z, y: Z): Z = {
             count <= y,
             sum == x*count
         )
+        //calc y-count here
 
         sum = sum + x
         count = count + 1
 
 
         //measure should decrease with each iteration
-            //does it?
+            //does it? yes, gets one smaller each time
 
         //when I have no work left, then my loop should be done
             //is it?
+            //measure of work, y - count == 0
+            //means y == count
+            //loop condition would be false
     }
 
     return sum

@@ -22,7 +22,18 @@ Global variables and global invariants.
 
 - Multiple functions might modify the same global variables
 
+writing a class to represent a clock (time of day) 
+    fields: hours, minutes, seconds, am/pm
 
+    minutes and seconds should always be between 0-59
+
+    //need to REQUIRE as precondition that newMin be 0-59
+    //otherwise will violate global invariants
+    public void changeMinutes(int newMin)
+    {
+        minutesField = newMin;
+
+    }
 
 - GLOBAL INVARIANTS specify constraints about global variables
     --> global invariants  must be true initially
@@ -153,20 +164,29 @@ Functions:
 
 
     Fan on, speed 3, rotate on. Can we call setSpeed(2)?
+    No. shouldn't be allowed since speed would be 2 while rotate is on.
+    need to require if speed parameter is < 3 then fan is NOT rotating
 
     Fan off, speed 0, rotate off. Can we call setSpeed(1)?
+        Yes and the fan should be marked on
 
     Fan on, speed 2, rotate off. Can we call setSpeed(0)?
+        No, can only change speed by 1 in each direction.
 
     Fan on, speed 3, rotate on. Can we call setSpeed(4)?
+        Yes
 
     Fan on, speed 3, rotate on. Can we call makeRotate()?
+        No, fan is already rotating
 
     Fan on, speed 5, rotate off. Can we call setSpeed(5)?
+        No, speed is already at 5
 
     Fan on, speed 5, rotate off. Can we call setSpeed(6)?
+        No, speed is beyond boundaries
 
     Fan on, speed 1, rotate off. Can we call setSpeed(0)?
+        Yes. and fan would be marked off.
 
 
 

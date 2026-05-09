@@ -19,6 +19,30 @@ Halting problem - given a computer program and a set of inputs
     can you write another program to determine if the original
     program will halt for the inputs?
 
+We will use PBC to prove that we can't write such a program.
+
+Assume, for sake of contradiction, that we can write a program to determine if another program will terminate on a set of inputs. 
+    That is, assume we have:
+
+    def Halt(Function, Input):
+        if (Function(Input) halts) return true;
+        return false;
+
+We also write:
+    def DoOpposite(Function):
+        if (Halt(Function, Function) return true): loop forever
+            (false)
+        return (i.e., halt)
+
+Consider DoOpposite(DoOpposite). Two cases: 1) halts. 2) loops forever
+
+Case 1. Suppose DoOpposite(DoOpposite) halts. That means that Halt(DoOpposite, DoOpposite) returns false. That meant DoOpposite(DoOpposite) did not halt.
+Contradiction. 
+
+Case 2. Suppose DoOpposite(DoOpposite) loops forever. Then Halt(DoOpposite, DoOpposite) returned true. Then DoOpposite(DoOpposite) halts.
+This is another contradiction. 
+
+This means it is not possible to write a Halt program to determine if another program will terminate.
 
 
 ///////////////////////////
@@ -37,6 +61,9 @@ precondition violated?
 
 
 postcondition check?
+
+
+global invariants check?
 
 
 

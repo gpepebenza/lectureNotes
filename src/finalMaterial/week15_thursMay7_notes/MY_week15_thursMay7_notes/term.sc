@@ -45,6 +45,19 @@ def mult(x: Z, y: Z): Z = {
     return sum
 }
 
+/*
+We claim that multRec terminates for y>= 0 (y is an integer)
+Base case. We must show that our function terminates when y == 0
+(Smallest value in our domain). When y is 0, we immediately return.
+
+Inductive step, assume inductive hypothesis - that multRec terminates for some fixed y=k >= 0, k is an integer.
+(i.e., the second parameter)
+
+We must show that multRec terminates when our second parameter (y) is k+1. We go into the else because k+1 must be at least 1.
+There, we make a recursive call, passing y-1 (or k+1-1 = k) as the second parameter. (Really, calling multRec(x, k)). 
+By our inductive hypothesis, that recursive call terminates
+*/
+
 def multRec(x: Z, y: Z): Z = {
     Contract(
         Requires(y >= 0),
@@ -56,7 +69,7 @@ def multRec(x: Z, y: Z): Z = {
     if (y == 0) {
         answer = 0
     } else {
-        var temp: Z = mult(x, y-1)
+        var temp: Z = multRec(x, y-1)
         answer = x + temp
     }
 
